@@ -1,0 +1,24 @@
+rom collections import deque
+
+graph = {
+    'A': ['B', 'C'],
+    'B': ['D', 'E'],
+    'C': ['F'],
+    'D': [], 'E': [], 'F': []
+}
+
+def bfs(start, goal):
+    queue = deque([[start]])
+    visited = {start}
+    while queue:
+        path = queue.popleft()
+        node = path[-1]
+        if node == goal:
+            return path
+        for neighbour in graph[node]:
+            if neighbour not in visited:
+                visited.add(neighbour)
+                queue.append(path + [neighbour])
+    return None
+
+print("Path:", bfs('A', 'F'))
